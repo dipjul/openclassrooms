@@ -481,6 +481,91 @@ class SoundManager
 <hr>
 
 
+## Organize Objects With Structural Design Patterns
+### What Are Structural Design Patterns?
+- When you are all done, you bring your items to the front of the store, checkout, and pay. You interact with the cashier. Pretty simple. It is an example of a structural pattern where a large amount of complexity is hidden behind an uncomplicated interface. 
+- Structural patterns are ways of organizing classes or objects so that they are easy to use. There might be a lot happening behind the scenes, but as a user, you don’t need to know the complexities. 
+- There are two types of structural patterns — those that organize classes and those that organize objects.
 
 
+### What is the Adapter Pattern?
+Adapter is a structural design pattern that allows objects with incompatible interfaces to collaborate.
+
+The problem this pattern addresses is when you have code that expects one interface (set of methods), but the implementation provides another. 
+
+Eg. In our card game, let's say we created a PlayableCard interface, and our PlayingCard implemented it:
+```java
+interface PlayableCard {
+  void flip();
+};
+
+class PlayingCard implements PlayableCard {
+   bool faceUp;
+   
+   void flip () {
+      faceUp = !faceUp;
+   }
+};
+```
+
+But somewhere else in the company, someone has created a CoolCard class, that looks better than our implementation. We'd like to use that instead:
+```java
+class CoolCard {
+   void turnOver() {
+      // cool implementation here
+    }
+};
+```
+If we used this new card, every place that called our  flip()  operation would have to be changed to  turnOver(). 
+Not that hard in our little game, but imagine working on a bigger project! So instead, let's introduce an adapter that looks like a PlayableCard, but acts like a CoolCard:
+```java
+class PlayingCardAdapter implements PlayableCard {
+    CoolCard thisCard;
+    void flip() {
+        thisCard.turnOver();
+    }
+};
+```
+Now we don't have to change everywhere that we called the flip() operation! We do, however, have to create PlayingCardAdapter objects instead of PlayingCard objects. But we have a factory that makes all of that. So that's the only place in our code that needs to know about the new CoolCard concept that we added.
+
+### What is the Composite Pattern?
+There are times when you want to treat a bunch of objects and single objects the same.
+
+The composite design pattern does this. Every item, whether it is a single entity or collection exposes the same interface. The collection’s implementation runs through all the objects it owns, asking each to perform the requested method.
+
+```java
+Shape shape = new Circle();
+shape.draw();
+```
+```java
+Shape shapes = new ComplicatedDiagramOfABunchOfShapes();
+shapes.draw();
+```
+
+### What is the Decorator Pattern?
+Decorator is similar to composite in that it allows a group of objects to behave as if it were just one. However, the difference is that the objects managed by decorators add new functionality that the original did not contain.
+
+Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.
+
+### Let's Recap! 
+- Structural patterns are ways of organizing classes or objects so that they are easy to use. 
+
+- The adapter pattern changes the interface of a class from non-compatible, to one that is expected.
+
+- The composite pattern allows individual and collection objects to be treated the same.
+
+- The decorator pattern allows for additional behavior to be added and removed at runtime.
+
+<hr>
+
+## Manage Objects With Behavioral Design Patterns
+### What Are Behavioral Design Patterns?
+There is one central place that is responsible for the coordination of all the other objects. Rather than pilots talking to each other, they talk to one central controller. The controller then sends out commands to all of the aircraft. In software, this central controller pattern is called a mediator.
+
+Similarly, you often have complicated communication between objects. The behavioral patterns provide ways for objects to communicate in sensible and systematic ways.
+
+### What is the Observer Pattern?
+In many situations, you have an object that has state information in it, that other objects need to be aware of. When that state information changes, all those other objects need to be informed. 
+
+Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing.
 
