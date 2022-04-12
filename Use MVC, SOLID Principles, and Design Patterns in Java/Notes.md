@@ -569,3 +569,50 @@ In many situations, you have an object that has state information in it, that ot
 
 Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing.
 
+
+### What is the Strategy Pattern?
+In its simplest form, the strategy pattern is well-defined polymorphism. When you have a family of algorithms, you can encapsulate each one into a class that implements a common interface. 
+
+```java
+interface PrepareSteak {
+    public void cook(Steak);
+};
+
+class RareSteak implements PrepareSteak {
+    public void cook(Steak) {
+        /* that's long enough */
+    }
+};
+class MediumRare implements PrepareSteak {
+    public void cook(Steak) {
+        /* make sure it's perfect */
+    }
+};
+class Medium implements PrepareSteak {
+    public void cook(Steak) {
+        /* keep it on grill a little too long*/
+    }
+};
+class WellDoneSteak implements PrepareSteak {
+    public void cook(Steak) {
+        /* forget about it, come back later */
+    }
+};
+```
+
+This pattern uses the open/closed principle. It allows for the creation of different implementations as needed, 
+while the caller of the strategy objects never needs to change. Use this pattern when looking to provide that 
+extra flexibility of picking a different approach without rewriting other parts of your code.
+
+### What is the State Pattern?
+In Java, you can’t dynamically add or modify methods to an object after it’s been created. But there are times when you want an object to behave differently as its state changes. One approach would be to add lots of ifs and switch statements. But that ends up with a mess of a design.
+
+Instead, you could add a new hierarchy of classes that encapsulate those different behaviors. The object the client is using then changes the back-end object as state changes, which is the state pattern. 
+
+### Let's Recap! 
+- The observer pattern allows a state change in one object to be acted upon by many dependencies.
+
+- The strategy pattern allows for individual algorithms to be chosen for specific situations.
+
+- The state pattern allows for system behavior to vary depending on the current situation.
+
